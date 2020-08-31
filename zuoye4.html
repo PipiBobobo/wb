@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    li {
+        list-style: none;
+    }
+
+    #app {
+        width: 100%;
+        margin: auto;
+    }
+
+    header {
+        height: 50px;
+        background: rgba(47, 47, 47, 0.98);
+        text-align: center;
+    }
+
+    header label {
+        color: #DDD;
+        font-size: 24px;
+        padding-right: 20px;
+    }
+
+    header input {
+        width: 30%;
+        height: 30px;
+        margin-top: 6px;
+        text-indent: 10px;
+        border: 0;
+        outline: none;
+    }
+
+    section {
+        width: 600px;
+        margin: auto;
+    }
+
+    section h2 {
+
+        position: relative;
+    }
+
+    section span {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        display: inline-block;
+        padding: 0 5px;
+        height: 20px;
+        border-radius: 20px;
+        background: #E6E6FA;
+        line-height: 22px;
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .alist {
+        margin: auto;
+    }
+
+    .alist li {
+        width: 600px;
+        height: 30px;
+    }
+
+    .check {
+        display: block;
+        float: left;
+    }
+
+    .btn {
+        float: right;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+
+        <header>
+            <label for="tittle">ToDoList</label>
+            <input type="text" value="添加ToDo" v-model="iptval" @keyup.enter="addItem">
+        </header>
+
+        <section>
+            <h2>正在进行 </h2>
+            <ul class="alist" v-if="!isShow">
+                <li v-for="(item,index) in list" key="index">
+                    <input type="checkbox" class="check" @click="isShow=!isShow">
+                    {{item}}
+                    <button class="btn" @click="del(key)">删除</button>
+                </li>
+            </ul>
+            <h2>已经完成</h2>
+            <ul class="alist" v-if="isShow">
+                <li v-for="(item,index) in list" key="index">
+                    <input type="checkbox" class="check" @click="isShow=!isShow">
+                    {{item}}
+                    <button class="btn" @click="del(key)">删除</button>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                //输入框输入内容
+                iptval: '',
+                list: [],
+                isShow: false,
+            },
+            methods: {
+                addItem() {
+                    this.list.push(this.iptval),
+                        this.iptval = '';
+                },
+                del(key) {
+                    this.list.splice(key, 1)
+                },
+            }
+        })
+
+    </script>
+</body>
+
+</html>
